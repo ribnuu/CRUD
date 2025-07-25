@@ -1,4 +1,3 @@
-<!-- employees/templates/employees/employee_confirm_delete.html -->
 {% extends 'base.html' %}
 
 {% block title %}Delete Employee - {{ employee.get_full_name }}{% endblock %}
@@ -6,64 +5,71 @@
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-6">
-        <div class="card border-danger">
-            <div class="card-header bg-danger text-white">
-                <h4><i class="fas fa-exclamation-triangle"></i> Confirm Delete</h4>
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-transparent border-bottom-0">
+                <h4 class="text-danger fw-semibold mb-0">
+                    <i class="fas fa-exclamation-triangle me-2"></i> Confirm Deletion
+                </h4>
             </div>
-            <div class="card-body">
-                <div class="text-center mb-4">
-                    {% if employee.employee_image %}
-                        <img src="{{ employee.employee_image.url }}" alt="{{ employee.get_full_name }}" class="img-fluid rounded-circle mb-3" style="width: 120px; height: 120px; object-fit: cover;">
-                    {% else %}
-                        <div class="bg-secondary rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 120px; height: 120px;">
-                            <i class="fas fa-user fa-3x text-white"></i>
-                        </div>
-                    {% endif %}
+
+            <div class="card-body text-center">
+
+                <!-- Employee Image -->
+                {% if employee.employee_image %}
+                    <img src="{{ employee.employee_image.url }}" alt="{{ employee.get_full_name }}" class="employee-image mb-2" style="width: 120px; height: 120px; object-fit: cover; border-radius: 50%; box-shadow: var(--shadow-sm);">
+                {% else %}
+                    <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center mx-auto mb-2" style="width: 120px; height: 120px;">
+                        <i class="fas fa-user fa-3x text-white"></i>
+                    </div>
+                {% endif %}
+
+                <!-- Employee Name -->
+                <h5 class="text-primary mb-1">{{ employee.get_full_name }}</h5>
+                <p class="text-muted small mb-3">Employee ID: <strong>{{ employee.id }}</strong></p>
+
+                <!-- Warning Message -->
+                <div class="alert alert-warning text-start d-flex align-items-start gap-3 rounded-3 p-3">
+                    <div class="alert-icon bg-warning text-white rounded-circle p-2">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="alert-content">
+                        <strong class="text-warning">Warning!</strong>
+                        <p class="mb-0 text-muted">Are you sure you want to delete this employee? This action cannot be undone.</p>
+                    </div>
                 </div>
-                
-                <div class="alert alert-warning">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <strong>Warning!</strong> Are you sure you want to delete this employee? This action cannot be undone.
-                </div>
-                
-                <table class="table table-borderless">
+
+                <!-- Info Table -->
+                <table class="table table-borderless text-start mb-0">
                     <tr>
-                        <td><strong>Employee ID:</strong></td>
-                        <td>{{ employee.employee_id }}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Name:</strong></td>
-                        <td>{{ employee.get_full_name }}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>NIC:</strong></td>
+                        <td class="fw-semibold text-muted">NIC:</td>
                         <td>{{ employee.nic }}</td>
                     </tr>
                     <tr>
-                        <td><strong>Email:</strong></td>
+                        <td class="fw-semibold text-muted">Email:</td>
                         <td>{{ employee.email }}</td>
                     </tr>
                     <tr>
-                        <td><strong>Status:</strong></td>
+                        <td class="fw-semibold text-muted">Status:</td>
                         <td>
                             {% if employee.status == 'active' %}
                                 <span class="badge bg-success">Active</span>
                             {% else %}
-                                <span class="badge bg-warning">Inactive</span>
+                                <span class="badge bg-warning text-dark">Inactive</span>
                             {% endif %}
                         </td>
                     </tr>
                 </table>
             </div>
-            <div class="card-footer">
+
+            <div class="card-footer bg-transparent d-flex justify-content-center gap-3 border-top-0 pt-3">
                 <form method="post" class="d-inline">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-danger">
-                        <i class="fas fa-trash"></i> Yes, Delete Employee
+                    <button type="submit" class="btn btn-danger px-4">
+                        <i class="fas fa-trash me-1"></i> Yes, Delete
                     </button>
                 </form>
-                <a href="{% url 'employee_detail' employee.pk %}" class="btn btn-secondary ms-2">
-                    <i class="fas fa-times"></i> Cancel
+                <a href="{% url 'employee_detail' employee.pk %}" class="btn btn-secondary px-4">
+                    <i class="fas fa-times me-1"></i> Cancel
                 </a>
             </div>
         </div>
