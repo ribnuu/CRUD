@@ -88,8 +88,6 @@ class EmployeeSearchForm(forms.Form):
         ('employee_id', 'Employee ID'),
         ('name', 'Name'),
         ('nic', 'NIC Number'),
-        ('email', 'Email'),
-        ('status', 'Status'),
     ]
     
     search_type = forms.ChoiceField(

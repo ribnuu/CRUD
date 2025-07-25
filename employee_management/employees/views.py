@@ -31,6 +31,7 @@ class EmployeeListView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['total_employees'] = Employee.objects.count()
         context['active_employees'] = Employee.objects.filter(status='active').count()
+        context['inactive_employees'] = Employee.objects.filter(status='inactive').count()
         context['search_form'] = EmployeeSearchForm()
         return context
 

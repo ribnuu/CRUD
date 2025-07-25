@@ -4,32 +4,75 @@
 {% block title %}Login - Employee Management{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-6 col-lg-4">
-        <div class="card shadow">
-            <div class="card-header bg-primary text-white text-center">
-                <h4><i class="fas fa-sign-in-alt"></i> HR Officer Login</h4>
-            </div>
-            <div class="card-body">
-                <form method="post">
-                    {% csrf_token %}
+<div class="login-container">
+    <div class="login-background">
+        <div class="login-overlay"></div>
+    </div>
+    
+    <div class="container-fluid vh-100 d-flex align-items-center justify-content-center">
+        <div class="row w-100 justify-content-center">
+            <div class="col-11 col-sm-8 col-md-6 col-lg-5 col-xl-4">
+                <div class="login-card card border-0">
+                    <div class="card-body px-4 py-4">
 
-                    {% if form.errors %}
-                        <div class="alert alert-danger">
-                            <strong>Login failed!</strong> Please check your credentials.
+                        <div class="login-header text-center mb-4">
+                            <h4 class="login-title">
+                                <i class="fas fa-building me-2"></i>
+                                HR Portal
+                            </h4>
+                            <p class="login-subtitle text-muted">Employee Management System</p>
                         </div>
-                    {% endif %}
+                        
+                        <div class="login-header text-center mb-4">
+                            <h4 class="login-title">
+                                <i class="fas fa-user-shield me-2"></i>
+                                Officer Login
+                            </h4>
+                            <p class="login-subtitle text-muted">Please sign in to your account</p>
+                        </div>
 
-                    {% bootstrap_form form layout="vertical" %}
+                        <form method="post" class="login-form">
+                            {% csrf_token %}
+                            
+                            {% if form.errors %}
+                                <div class="alert alert-danger alert-modern" role="alert">
+                                    <div class="alert-icon">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </div>
+                                    <div class="alert-content">
+                                        <strong>Authentication Failed</strong>
+                                        <p class="mb-0">Please verify your credentials and try again</p>
+                                    </div>
+                                </div>
+                            {% endif %}
 
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-sign-in-alt"></i> Login
-                        </button>
+                            <div class="form-group-modern mb-4">
+                                {% bootstrap_form form layout="vertical" %}
+                            </div>
+
+                            <div class="d-grid gap-2 mb-4">
+                                <button type="submit" class="btn btn-primary btn-modern">
+                                    <span class="btn-text">
+                                        <i class="fas fa-sign-in-alt me-2"></i>
+                                        Sign In
+                                    </span>
+                                </button>
+                            </div>
+
+                            <div class="security-notice text-center">
+                                <small class="text-muted">
+                                    <i class="fas fa-shield-alt me-1"></i>
+                                    Your connection is secure and encrypted
+                                </small>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                    </div>
             </div>
         </div>
     </div>
 </div>
 {% endblock %}
+
+{% block footer %}
+{% endblock footer %}
