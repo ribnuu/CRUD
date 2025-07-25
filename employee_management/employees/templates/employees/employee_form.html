@@ -1,0 +1,153 @@
+<!-- employees/templates/employees/employee_form.html -->
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block title %}
+    {% if object %}Edit Employee{% else %}Add Employee{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4>
+                    {% if object %}
+                        <i class="fas fa-edit"></i> Edit Employee - {{ object.get_full_name }}
+                    {% else %}
+                        <i class="fas fa-plus"></i> Add New Employee
+                    {% endif %}
+                </h4>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
+
+                    <div class="row">
+                        <!-- Employee Image -->
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Employee Photo</label>
+                            {% if object.employee_image %}
+                                <div class="mb-2">
+                                    <img src="{{ object.employee_image.url }}" alt="Current Photo" class="img-thumbnail" style="max-width: 150px;">
+                                </div>
+                            {% endif %}
+                            {{ form.employee_image }}
+                            {% if form.employee_image.errors %}
+                                <div class="text-danger">{{ form.employee_image.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Personal Information -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">First Name *</label>
+                            {{ form.first_name }}
+                            {% if form.first_name.errors %}
+                                <div class="text-danger">{{ form.first_name.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Last Name *</label>
+                            {{ form.last_name }}
+                            {% if form.last_name.errors %}
+                                <div class="text-danger">{{ form.last_name.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Date of Birth *</label>
+                            {{ form.dob }}
+                            {% if form.dob.errors %}
+                                <div class="text-danger">{{ form.dob.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">NIC Number *</label>
+                            {{ form.nic }}
+                            {% if form.nic.errors %}
+                                <div class="text-danger">{{ form.nic.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Passport Number</label>
+                            {{ form.passport }}
+                            {% if form.passport.errors %}
+                                <div class="text-danger">{{ form.passport.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Contact Information -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Mobile Number *</label>
+                            {{ form.mobile }}
+                            {% if form.mobile.errors %}
+                                <div class="text-danger">{{ form.mobile.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Telephone Number</label>
+                            {{ form.telephone }}
+                            {% if form.telephone.errors %}
+                                <div class="text-danger">{{ form.telephone.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Email Address *</label>
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                                <div class="text-danger">{{ form.email.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Address *</label>
+                            {{ form.address }}
+                            {% if form.address.errors %}
+                                <div class="text-danger">{{ form.address.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Status and Remarks -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Status *</label>
+                            {{ form.status }}
+                            {% if form.status.errors %}
+                                <div class="text-danger">{{ form.status.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Remarks</label>
+                            {{ form.remarks }}
+                            {% if form.remarks.errors %}
+                                <div class="text-danger">{{ form.remarks.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'employee_list' %}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Cancel
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save"></i> 
+                            {% if object %}Update Employee{% else %}Save Employee{% endif %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
